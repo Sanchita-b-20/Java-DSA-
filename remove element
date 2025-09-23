@@ -1,0 +1,40 @@
+public class Solution {
+    public int removeElement(int[] nums, int val) {
+        int i = 0; // Pointer to track the position for non-val elements
+
+        // Iterate through the array with pointer j
+        for (int j = 0; j < nums.length; j++) {
+            // If the current element is not equal to val, move it to the i-th position
+            if (nums[j] != val) {
+                nums[i] = nums[j];
+                i++; // Increment i to mark the next position for non-val element
+            }
+        }
+
+        // Return the count of non-val elements
+        return i;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        
+        // Test example 1
+        int[] nums1 = {3, 2, 2, 3};
+        int val1 = 3;
+        int k1 = solution.removeElement(nums1, val1);
+        System.out.println("k = " + k1); // Expected output: 2
+        for (int i = 0; i < k1; i++) {
+            System.out.print(nums1[i] + " "); // Expected output: 2 2
+        }
+        System.out.println();
+
+        // Test example 2
+        int[] nums2 = {0, 1, 2, 2, 3, 0, 4, 2};
+        int val2 = 2;
+        int k2 = solution.removeElement(nums2, val2);
+        System.out.println("k = " + k2); // Expected output: 5
+        for (int i = 0; i < k2; i++) {
+            System.out.print(nums2[i] + " "); // Expected output: 0 1 3 0 4
+        }
+    }
+}
