@@ -1,0 +1,28 @@
+public class Solution {
+
+    private static final int[] cache = new int[256];
+
+    // static block: runs once and fills the cache
+    static {
+        for (int i = 0; i < 256; i++) {
+            cache[i] = reverseByte(i);
+        }
+    }
+
+    private static int reverseByte(int b) {
+        int r = 0;
+        for (int i = 0; i < 8; i++) {
+            r <<= 1;
+            r |= (b & 1);
+            b >>= 1;
+        }
+        return r;
+    }
+
+    public int reverseBits(int n) {
+        return  (cache[n & 0xff] << 24) |
+                (cache[(n >>> 8) & 0xff] << 16) |
+                (cache[(n >>> 16) & 0xff] << 8) |
+                (cache[(n >>> 24) & 0xff]);
+    }
+}
