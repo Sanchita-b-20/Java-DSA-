@@ -1,0 +1,27 @@
+class Solution {
+    public String convertToBase7(int num) {
+        // Handle zero case
+        if (num == 0) {
+            return "0";
+        }
+
+        boolean isNegative = num < 0;
+        num = Math.abs(num);
+
+        StringBuilder result = new StringBuilder();
+
+        // Convert to base 7
+        while (num > 0) {
+            result.append(num % 7);
+            num /= 7;
+        }
+
+        // Add negative sign if needed
+        if (isNegative) {
+            result.append("-");
+        }
+
+        // Reverse the result
+        return result.reverse().toString();
+    }
+}
