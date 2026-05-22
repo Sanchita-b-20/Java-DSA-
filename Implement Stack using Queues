@@ -1,0 +1,62 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class MyStack {
+
+    Queue<Integer> q1;
+    Queue<Integer> q2;
+
+    public MyStack() {
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
+    }
+
+    // Push element onto stack
+    public void push(int x) {
+        q1.offer(x);
+    }
+
+    // Removes and returns the top element
+    public int pop() {
+
+        // Move all elements except last to q2
+        while (q1.size() > 1) {
+            q2.offer(q1.poll());
+        }
+
+        // Last element is the stack top
+        int topElement = q1.poll();
+
+        // Swap queues
+        Queue<Integer> temp = q1;
+        q1 = q2;
+        q2 = temp;
+
+        return topElement;
+    }
+
+    // Returns top element
+    public int top() {
+
+        while (q1.size() > 1) {
+            q2.offer(q1.poll());
+        }
+
+        int topElement = q1.poll();
+
+        // Put it back because this is top(), not pop()
+        q2.offer(topElement);
+
+        // Swap queues
+        Queue<Integer> temp = q1;
+        q1 = q2;
+        q2 = temp;
+
+        return topElement;
+    }
+
+    // Returns true if stack is empty
+    public boolean empty() {
+        return q1.isEmpty();
+    }
+}
