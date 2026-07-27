@@ -1,0 +1,37 @@
+import java.util.*;
+
+class Solution {
+
+    private List<String> result = new ArrayList<>();
+    private int[] values = {8, 4, 2, 1, 32, 16, 8, 4, 2, 1};
+
+    public List<String> readBinaryWatch(int turnedOn) {
+        dfs(0, turnedOn, 0, 0);
+        return result;
+    }
+
+    private void dfs(int index, int ledsLeft, int hour, int minute) {
+        if (hour > 11 || minute > 59) {
+            return;
+        }
+
+        if (ledsLeft == 0) {
+            result.add(hour + ":" + String.format("%02d", minute));
+            return;
+        }
+
+        if (index == values.length) {
+            return;
+        }
+
+        // Choose current LED
+        if (index < 4) {
+            dfs(index + 1, ledsLeft - 1, hour + values[index], minute);
+        } else {
+            dfs(index + 1, ledsLeft - 1, hour, minute + values[index]);
+        }
+
+        // Skip current LED
+        dfs(index + 1, ledsLeft, hour, minute);
+    }
+}
